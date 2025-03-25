@@ -1,20 +1,30 @@
+// src/TaskList.tsx
 import React from 'react';
 import { Task } from './types';
 
 interface TaskListProps {
   tasks: Task[];
+  onDeleteTask: (id: number) => void;
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, onDeleteTask }) => {
   return (
-    <div>
-      {tasks.map(task => (
-        <div key={task.id} className="TaskItem">
-          <h3>{task.title} ({task.dueDate})</h3>
+    <ul>
+      {tasks.map((task) => (
+        <li key={task.id} className="TaskItem">
+          <h3>
+            {task.title} ({task.dueDate})
+          </h3>
           <p>{task.description}</p>
-        </div>
+          <button
+            className="deleteTaskButton"
+            onClick={() => onDeleteTask(task.id)}
+          >
+            Delete
+          </button>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 
